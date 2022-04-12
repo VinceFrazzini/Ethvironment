@@ -90,9 +90,12 @@ if (provider) {
   // From now on, this should always be true:
   // provider === window.ethereum
   //startApp(provider); // initialize your app
-  console.log("Looking Good")
+  console.log(provider)
 } else {
-  console.log('Please install MetaMask!');
+        document.querySelector(".popup").style.display = "block";
+        document.querySelector("#close").addEventListener("click", function(){
+        document.querySelector(".popup").style.display = "none";
+        });
 }
 }
     /*window.addEventListener('load', async () => {
