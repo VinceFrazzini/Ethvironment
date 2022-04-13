@@ -80,7 +80,9 @@ a{
         <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target = "_blank" >Download</a>
     </div>
 
+<button type="connectButton">Connect</button>
 
+    
 <script>
 //import detectEthereumProvider from '@metamask/detect-provider';
 async function checkMetaMask(){
@@ -89,6 +91,7 @@ const provider =  await detectEthereumProvider();
 if (provider) {
   // From now on, this should always be true:
   // provider === window.ethereum
+  web3js = new web3(provider)
   //startApp(provider); // initialize your app
   console.log(provider)
 } else {
@@ -98,41 +101,53 @@ if (provider) {
         });
 }
 }
-    /*window.addEventListener('load', async () => {
-    // Modern dapp browsers...
-    if (window.ethereum) {
-        console.log("Eth Success");
-        window.web3 = new Web3(ethereum);
-        try {
-            // Request account access if needed
-            await ethereum.enable();
-            // Acccounts now exposed
-            web3.eth.sendTransaction({/* ... });
-        } catch (error) {
-            // User denied account access...
-        }
-    }
-    // Legacy dapp browsers...
-    else if (window.web3) {
-        console.log("Web3 Success")
-        window.web3 = new Web3(web3.currentProvider);
-        // Acccounts always exposed
-        web3.eth.sendTransaction({/* ... });
-    }
-    // Non-dapp browsers...
-    else {
-        document.querySelector(".popup").style.display = "block";
-        document.querySelector("#close").addEventListener("click", function(){
-        document.querySelector(".popup").style.display = "none";
-        });
-    }
-});*/
 
-//console.log("Test Success");
-  // Now you can start your app & access web3js freely:
-  //startApp()
-  //web3js = new Web3(web3.currentProvider);
 window.addEventListener('load',checkMetaMask);
+
+let currentAccount = null;
+ethereum
+  .request({ method: 'eth_accounts' })
+  .then(handleAccountsChanged)
+  .catch((err) => {
+    // Some unexpected error.
+    // For backwards compatibility reasons, if no accounts are available,
+    // eth_accounts will return an empty array.
+    console.error(err);
+  });
+
+// Note that this event is emitted on page load.
+// If the array of accounts is non-empty, you're already
+// connected.
+ethereum.on('accountsChanged', handleAccountsChanged);
+
+// For now, 'eth_accounts' will continue to always return an array
+function handleAccountsChanged(accounts) {
+  if (accounts.length === 0) {
+    // MetaMask is locked or the user has not connected any accounts
+    console.log('Please connect to MetaMask.');
+  } else if (accounts[0] !== currentAccount) {
+    currentAccount = accounts[0];
+    // Do any other work!
+  }
+}
+
+document.getElementById('connectButton', connect);
+
+function connect() {
+  ethereum
+    .request({ method: 'eth_requestAccounts' })
+    .then(handleAccountsChanged)
+    .catch((err) => {
+      if (err.code === 4001) {
+        // EIP-1193 userRejectedRequest error
+        // If this happens, the user rejected the connection request.
+        console.log('Please connect to MetaMask.');
+      } else {
+        console.error(err);
+      }
+    });
+}
+
 </script>
 </body>
 </html>
