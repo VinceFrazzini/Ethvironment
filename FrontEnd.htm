@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Ethvironment Front-End</title>
-
+<script language="javascript" type="text/javascript" src="Ethvironment_Abi.js"></script>
 <script type="module" src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
@@ -84,6 +84,8 @@ a{
 
     
 <script>
+
+var Ethvironment;
 //import detectEthereumProvider from '@metamask/detect-provider';
 async function checkMetaMask(){
 const provider =  await detectEthereumProvider();
@@ -103,6 +105,19 @@ if (provider) {
 }
 
 window.addEventListener('load',checkMetaMask);
+
+function startApp(provider) {
+  if (provider !== window.ethereum) {
+    console.error('Do you have multiple wallets installed?');
+  }
+  
+  var EthvironmentAddress = "0xB89f524918BCf01b3EB82038f6002EEbcdc7414F";
+  Ethvironment = new window.ethereum.contract(EthvironmentABI,EthvironmentAddress);
+}
+
+function getLookAt() {
+    return Ethvironment.method.lookAt().call()
+}
 
 let currentAccount = null;
 ethereum
@@ -147,6 +162,13 @@ function connect() {
       }
     });
 }
+
+
+getLookAt()
+.then(function(result) {
+  console.log("Signed: " + JSON.stringify(result));
+});
+
 
 </script>
 </body>
