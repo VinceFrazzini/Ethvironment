@@ -5,7 +5,7 @@
 <title>Ethvironment Front-End</title>
 <script language="javascript" type="text/javascript" src="Eth_Abi_Current.js"></script>
 <script type="module" src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
-<script language="javascript" type="text/javascript" src="web3.min.js"></script>
+<script language="javascript" type="text/javascript" src="web3.min.new.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
 <style media="screen">
@@ -114,7 +114,7 @@ function startApp(provider) {
   }
   
   var EthvironmentAddress = "0x3B56a97CB2eA64080C1dD7FD8005c93747119C24";
-  Ethvironment = web3js.eth.contract(Ethvironment_ABI,EthvironmentAddress);
+  Ethvironment = new web3js.eth.Contract(Ethvironment_ABI,EthvironmentAddress);
 }
 
 function getLookAt() {
