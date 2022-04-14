@@ -93,8 +93,8 @@ const provider =  await detectEthereumProvider();
 if (provider) {
   // From now on, this should always be true:
   // provider === window.ethereum
-  web3js = new web3(provider)
-  //startApp(provider); // initialize your app
+  //web3js = new web3(provider)
+  startApp(provider); // initialize your app
   console.log(provider)
 } else {
         document.querySelector(".popup").style.display = "block";
