@@ -114,7 +114,7 @@ function startApp(provider) {
   }
   
   var EthvironmentAddress = "0x3B56a97CB2eA64080C1dD7FD8005c93747119C24";
-  Ethvironment = new web3js.eth.Contract(Ethvironment_ABI,EthvironmentAddress);
+  Ethvironment = web3js.eth.contract(Ethvironment_ABI,EthvironmentAddress);
 }
 
 function getLookAt() {
