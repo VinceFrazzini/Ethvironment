@@ -97,7 +97,7 @@ if (provider) {
   // provider === window.ethereum
   web3js = new Web3(provider);
   startApp(provider); // initialize your app
-  console.log(provider)
+  console.log(web3js);
 } else {
         document.querySelector(".popup").style.display = "block";
         document.querySelector("#close").addEventListener("click", function(){
