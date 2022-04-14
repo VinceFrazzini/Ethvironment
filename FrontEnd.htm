@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Ethvironment Front-End</title>
-<script language="javascript" type="text/javascript" src="Ethvironment_Abi.js"></script>
+<script language="javascript" type="text/javascript" src="https://raw.githubusercontent.com/VinceFrazzini/Ethvironment/main/Eth_Abi_Current.js"></script>
 <script type="module" src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
@@ -111,12 +111,12 @@ function startApp(provider) {
     console.error('Do you have multiple wallets installed?');
   }
   
-  var EthvironmentAddress = "0xB89f524918BCf01b3EB82038f6002EEbcdc7414F";
-  Ethvironment = new window.ethereum.contract(EthvironmentABI,EthvironmentAddress);
+  var EthvironmentAddress = "0x3B56a97CB2eA64080C1dD7FD8005c93747119C24";
+  Ethvironment = new ethereum.contract(Ethvironment_ABI,EthvironmentAddress);
 }
 
 function getLookAt() {
-    return Ethvironment.method.lookAt().call()
+    return Ethvironment.methods.lookAt().call()
 }
 
 let currentAccount = null;
