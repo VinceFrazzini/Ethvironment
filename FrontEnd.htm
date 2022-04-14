@@ -82,7 +82,9 @@ a{
     </div>
 
 <button type="connectButton" onclick="connect();">Connect</button>
-	<button type="ViewButton" onclick="getLookAt();">View</button>
+	<button type="ViewButton" onclick="getLookAt().then(function(result) {
+  console.log("Signed: " + JSON.stringify(result));
+});">View</button>
     
 <script>
 
